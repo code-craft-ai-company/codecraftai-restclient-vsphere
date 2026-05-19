@@ -1,0 +1,29 @@
+[tool.poetry]
+name = "automojo-interop-vsphere"
+description = "Automation Mojo - vSphere REST client (interop)"
+version = "0.0.1"
+authors = []
+readme = "README.rst"
+license = "LICENSE.txt"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: POSIX"
+]
+keywords = [
+    "python",
+    "automation",
+    "automojo"
+]
+packages = [{include="automojo", from="source/packages"}]
+
+[tool.poetry.dependencies]
+python = ">=3.10,<4.0"
+
+[tool.poetry.group.dev.dependencies]
+hypothesis = ">=6.0.0"
+pytest = ">=8.0.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
