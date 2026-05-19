@@ -1,50 +1,72 @@
-=======================
-python-package-template
-=======================
-This is a template repository that can be used to quickly create a python package project.
+===================================
+Automation Mojo Interop - vSphere
+===================================
 
-=========================
-Features of this Template
-=========================
-* Machine Setup
-* Virtual Environment Setup (Poetry)
-* PyPi Publishing
+The ``automojo-interop-vsphere`` package is a typed, aspect-driven REST client for the VMware vCenter API. It implements the ``IVPNControlPlane``-adjacent virtualization surface as a sibling to other vendor packages in the automojo suite, built on top of ``automojo-restclient-base``. The client replaces the legacy ``VSphereAgent`` from ``automojo-landscaping/services/vmware/`` — a 606-line agent class plus 29 extension modules — with a ``RestClientBase``-derived ``VSphereClient`` and 29 ``RestApiGroup`` subclasses.
 
-========================
-How to Use This Template
-========================
-- Click the 'Use this template' button
-- Fill in the information to create your repository
-- Checkout your new repository
-- Change the following in 'repository-config.ini'
+This package is hand-authored against the documented vCenter REST surface and does **not** use OpenAPI code generation. The reasoning is recorded in the ``AGENTS.md`` "Codegen Decision" section and in the workspace-level ``PLAN-VPN-AND-CLOUD-PROVISIONING.md`` §9.2a.
 
-  #. 'PROJECT NAME'
-  #. 'REPOSITORY_NAME'
-
-- If you have machine dependencies to add, put them in 'setup-ubuntu-machine'
-- Modify the pyproject.toml file with the correct package-name, author, publishing information, etc.
-- Rename the VSCODE workspace file 'mv workspaces/default-workspace.template workspaces/(project name).template'
-- Replace the README.rst file with your own README
-- Update the LICENSE.txt file with your copyright information and license.
-- Add your dependencies with python poetry 'poetry add (dependency name)'
-- Drop your package code in 'source/packages'
-- Modify the name of your package root in 'pyproject.toml'
-
-  #. 'packages = [{include="(root folder name)", from="source/packages"}]'
-
-=================
-Code Organization
-=================
-* .vscode - Common tasks
-* development - This is where the runtime environment scripts are located
-* repository-setup - Scripts for homing your repository and to your checkout and machine setup
-* userguide - Where you put your user guide
-* source/packages - Put your root folder here 'source/packages/(root-module-folder)'
-* workspaces - This is where you add VSCode workspaces templates and where workspaces show up when homed.
-
-==========
-References
+Highlights
 ==========
 
-- `User Guide <userguide/userguide.rst>`
-- `Coding Standards <userguide/10-00-coding-standards.rst>`
+- ``VSphereClient`` — the ``RestClientBase`` subclass that handles session-token mint, dual ``/api`` and ``/rest`` URL composition, and the 29 lazy-cached api-group properties.
+- ``VSphereTaskHandle`` — implements ``ITaskHandle`` from ``automojo-interfaces``; sync-polling with aspects-controlled interval and timeout, injectable clock/sleeper/fetcher for test determinism.
+- 29 ``apigroups/*Group`` classes covering certificate management, clusters, compute, content library, crypto manager, datacenter, datastore, deployment, folder, guest, host, hvc, identity, inventory, iso, lcm, namespace management, networks, OVF, resource pool, services, storage, system config, tagging, token service, topology, trusted infrastructure, and VMs.
+- Content Library deploy (``ContentGroup.deploy_ovf_item``), OVF deploy from URL or local file (``OvfGroup.deploy_from_url`` / ``deploy_from_local_ovf``), and guest customization (Linux cloud-init + Windows sysprep renderers).
+- VM lifecycle waiters: ``wait_for_power_state``, ``wait_for_tools_ready``, ``wait_for_ip_address``.
+- Inventory helpers: ``find_vm_by_name``, ``find_vm_by_tag``, ``find_datastore_with_free_gb``, ``pick_least_loaded_host`` — with total tie-breaking ordering and hypothesis property-tested selection determinism.
+- Events stream (``EventsGroup.stream`` with backpressure + dropped-event counting) and linked-mode helpers (``linked_vcenters``, ``for_vcenter``).
+
+Repository Structure
+====================
+
+- ``development/`` - Runtime environment scripts.
+- ``repository-setup/`` - Repository homing and setup scripts.
+- ``source/packages/automojo/interop/vsphere/`` - Package source code.
+- ``source/testroots/testbase/automojo/tests/interop/vsphere/`` - TestBase test roots.
+- ``specs/`` - Requirements, design, and task documentation (Kiro-style).
+- ``userguide/`` - Standards, conventions, and documentation.
+
+Environment Setup
+=================
+
+When working in a Codex container:
+
+.. code-block:: bash
+
+   ./development/setup-agent-container
+
+For local development:
+
+.. code-block:: bash
+
+   ./repository-setup/rehome-repository
+   ./development/setup-environment
+
+Running Tests
+=============
+
+Activate the virtual environment:
+
+.. code-block:: bash
+
+   source .venv/bin/activate
+
+Run the test suite:
+
+.. code-block:: bash
+
+   PYTHONPATH=source/packages:source/testroots/testbase python -m pytest source/testroots -q
+
+Standards and Conventions
+=========================
+
+- Naming conventions: ``userguide/10-02-naming-conventions.rst``
+- Code organization: ``userguide/10-01-code-organization.rst``
+- Coding standards: ``userguide/10-00-coding-standards.rst``
+
+Additional Resources
+====================
+
+- User guide entry point: ``userguide/userguide.rst``
+- Codegen decision: ``AGENTS.md`` (Codegen Decision section)
