@@ -77,4 +77,95 @@ class AspectsVSphere(AspectsRest):
         return
 
 
+def _coalesce_attr(*, source: object, names: tuple, default: float) -> float:
+    """
+        Return the first present, non-None attribute of ``source`` named
+        in ``names``, falling back to ``default``.
+
+        :param source: The object to inspect.
+        :param names: Candidate attribute names, in priority order.
+        :param default: Value returned when no candidate is present.
+
+        :returns: The resolved value.
+    """
+    rtnval = default
+    for name in names:
+        if hasattr(source, name):
+            value = getattr(source, name)
+            if value is not None:
+                rtnval = value
+                break
+    return rtnval
+
+
+def vsphere_aspects_from_aspects(*, aspects: object) -> AspectsVSphere:
+    """
+        Adapt any ``Aspects``-shaped object into an :class:`AspectsVSphere`.
+
+        A provisioning-layer caller carries a ``ProvisioningAspects`` (or
+        another aspects bundle) whose timeout / interval fields are named
+        differently from those on :class:`AspectsVSphere`.  This adapter
+        maps the common fields so the bundle can be forwarded straight
+        into the vSphere client surface.
+
+        Field mapping (first present wins):
+          * completion_timeout  <- completion_timeout | verify_timeout | timeout
+          * completion_interval <- completion_interval | verify_interval | interval
+
+        When ``aspects`` is already an :class:`AspectsVSphere` it is
+        returned unchanged.
+
+        :param aspects: Any aspects-shaped object (including
+            ``ProvisioningAspects``) or ``None``.
+
+        :returns: An :class:`AspectsVSphere` instance.
+    """
+    if isinstance(aspects, AspectsVSphere):
+        rtnval = aspects
+        return rtnval
+
+    if aspects is None:
+        rtnval = AspectsVSphere()
+        return rtnval
+
+    completion_timeout = _coalesce_attr(
+        source=aspects,
+        names=("completion_timeout", "verify_timeout", "timeout"),
+        default=30.0,
+    )
+    completion_interval = _coalesce_attr(
+        source=aspects,
+        names=("completion_interval", "verify_interval", "interval"),
+        default=2.0,
+    )
+
+    logger = None
+    if hasattr(aspects, "logger"):
+        logger = getattr(aspects, "logger")
+
+    rtnval = AspectsVSphere(
+        completion_timeout=completion_timeout,
+        completion_interval=completion_interval,
+        logger=logger,
+    )
+    return rtnval
+
+
+def _from_aspects_classmethod(cls, aspects: object) -> AspectsVSphere:
+    """
+        Classmethod body for :meth:`AspectsVSphere.from_aspects`.
+
+        :param cls: The :class:`AspectsVSphere` class object.
+        :param aspects: Any aspects-shaped object or ``None``.
+
+        :returns: An :class:`AspectsVSphere` instance.
+    """
+    _ = cls
+    rtnval = vsphere_aspects_from_aspects(aspects=aspects)
+    return rtnval
+
+
+AspectsVSphere.from_aspects = classmethod(_from_aspects_classmethod)
+
+
 DEFAULT_VSPHERE_ASPECTS = AspectsVSphere()

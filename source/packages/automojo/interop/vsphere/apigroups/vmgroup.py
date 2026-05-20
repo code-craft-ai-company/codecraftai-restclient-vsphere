@@ -451,6 +451,107 @@ class VmGroup(BaseGroup):
 
         return rtnval
 
+    def attach_disk(
+        self,
+        *,
+        vm_id: str,
+        datastore_id: str,
+        size_gb: int,
+        aspects: AspectsVSphere = DEFAULT_VSPHERE_ASPECTS,
+    ) -> VSphereTaskHandle:
+        """
+            Attach a newly-created virtual disk to a VM.
+
+            The disk is created on the supplied datastore at the
+            requested capacity.  vCenter performs the attach
+            asynchronously, so a task handle is returned.
+
+            :param vm_id: VM identifier.
+            :param datastore_id: Datastore the disk is created on.
+            :param size_gb: Disk capacity in gigabytes.
+            :param aspects: Behaviour controls.
+
+            :returns: A :class:`VSphereTaskHandle` for the attach task.
+        """
+        client = self.client
+        url = self.compose_url(parts=[vm_id, "hardware", "disk"])
+        capacity_bytes = size_gb * 1024 * 1024 * 1024
+        payload = {
+            "new_vmdk": {
+                "capacity": capacity_bytes,
+                "storage_policy": None,
+            },
+            "backing": {
+                "type": "VMDK_FILE",
+                "datastore": datastore_id,
+            },
+        }
+        session = client.ensure_session(aspects=aspects)
+        resp = session.post(url, json=payload, timeout=aspects.completion_timeout)
+        if resp.status_code not in (HTTPStatus.OK, HTTPStatus.ACCEPTED, HTTPStatus.CREATED):
+            raise_for_http_status(resp.status_code, resp.content, url, context="VmGroup.attach_disk")
+        try:
+            body = resp.json()
+        except Exception:
+            body = {}
+        task_id = _extract_task_id(payload=body)
+        rtnval = VSphereTaskHandle(task_id=task_id, client=client)
+        return rtnval
+
+    def detach_disk(
+        self,
+        *,
+        vm_id: str,
+        disk_id: str,
+        aspects: AspectsVSphere = DEFAULT_VSPHERE_ASPECTS,
+    ) -> VSphereTaskHandle:
+        """
+            Detach a virtual disk from a VM.
+
+            :param vm_id: VM identifier.
+            :param disk_id: Virtual disk identifier.
+            :param aspects: Behaviour controls.
+
+            :returns: A :class:`VSphereTaskHandle` for the detach task.
+        """
+        client = self.client
+        url = self.compose_url(parts=[vm_id, "hardware", "disk", disk_id])
+        session = client.ensure_session(aspects=aspects)
+        resp = session.delete(url, timeout=aspects.completion_timeout)
+        if resp.status_code not in (HTTPStatus.OK, HTTPStatus.ACCEPTED, HTTPStatus.NO_CONTENT):
+            raise_for_http_status(resp.status_code, resp.content, url, context="VmGroup.detach_disk")
+        try:
+            body = resp.json()
+        except Exception:
+            body = {}
+        task_id = _extract_task_id(payload=body)
+        rtnval = VSphereTaskHandle(task_id=task_id, client=client)
+        return rtnval
+
+    def list_disks(
+        self,
+        *,
+        vm_id: str,
+        aspects: AspectsVSphere = DEFAULT_VSPHERE_ASPECTS,
+    ) -> List[dict]:
+        """
+            List the virtual disks attached to a VM.
+
+            :param vm_id: VM identifier.
+            :param aspects: Behaviour controls.
+
+            :returns: A list of raw disk-summary dicts.
+        """
+        client = self.client
+        url = self.compose_url(parts=[vm_id, "hardware", "disk"])
+        session = client.ensure_session(aspects=aspects)
+        resp = session.get(url, timeout=aspects.completion_timeout)
+        if resp.status_code != HTTPStatus.OK:
+            raise_for_http_status(resp.status_code, resp.content, url, context="VmGroup.list_disks")
+        body = resp.json()
+        rtnval = list(body) if body is not None else []
+        return rtnval
+
     def snapshot_create(
         self,
         *,
