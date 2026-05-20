@@ -4,7 +4,7 @@
 
 The `vsphere-data-model-and-specs` feature delivers the typed DTOs (`model/`),
 request payload specs (`specs/`), and reference enumerations (`enums/`) used by every
-`*Group` class in `automojo-interop-vsphere`. It is the home for what was previously
+`*Group` class in `automojo-restclient-vsphere`. It is the home for what was previously
 split between the legacy `datastructures/model/`, `datastructures/specs/`, and
 `metasphere/` trees in `automojo-landscaping`, now cleanly separated by purpose.
 

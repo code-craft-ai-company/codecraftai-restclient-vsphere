@@ -3,7 +3,7 @@
 ## Introduction
 
 The `vsphere-client-rest-base` feature provides the foundational `VSphereClient` class
-for the `automojo-interop-vsphere` package. It is the rebuilt replacement for the
+for the `automojo-restclient-vsphere` package. It is the rebuilt replacement for the
 legacy `automojo-landscaping/services/vmware/vsphere/vsphereagent.py` client, but
 constructed as a `RestClientBase` subclass so it inherits Aspects-controlled
 behaviour, structured logging, retry/backoff, and the shared `raise_for_http_status`

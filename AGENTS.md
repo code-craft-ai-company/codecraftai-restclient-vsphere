@@ -43,7 +43,7 @@ here without first revisiting the decision rule in
 `PLAN-VPN-AND-CLOUD-PROVISIONING.md` §9.2a.
 
 # Project Overview
-The `automojo-interop-vsphere` package is the dedicated vSphere REST client for the
+The `automojo-restclient-vsphere` package is the dedicated vSphere REST client for the
 automojo suite. It is the extracted, rebuilt replacement for the legacy
 `automojo-landscaping/services/vmware/vsphere/vsphereagent.py` client. It is a peer
 interop package — promoted out of the `automojo-interop-ext-*` pattern because vSphere
@@ -68,7 +68,7 @@ Downstream consumers: `automojo-landscaping` (via `vspherecoordinatorcoupling`),
 `automojo-provisioning` (via `venues/vsphere/vspherecloudprovisioner`).
 
 # Testing Conventions
-The 'automojo-interop-vsphere' package repository utilizes the 'unittest' framework in
+The 'automojo-restclient-vsphere' package repository utilizes the 'unittest' framework in
 order to test the functionality of the code.
 
 ## Test Granularity

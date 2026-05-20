@@ -1,6 +1,6 @@
 [tool.poetry]
-name = "automojo-interop-vsphere"
-description = "Automation Mojo - vSphere Interop Package"
+name = "automojo-restclient-vsphere"
+description = "Automation Mojo - vSphere REST Client Package"
 version = "0.0.1"
 authors = []
 readme = "README.rst"

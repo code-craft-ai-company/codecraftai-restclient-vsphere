@@ -59,7 +59,7 @@ class EventStream:
 ## Module Layout
 
 ```
-source/packages/automojo/interop/vsphere/
+source/packages/automojo/restclient/vsphere/
 ├── apigroups/eventsgroup.py     # (new) EventsGroup with stream()
 ├── apigroups/eventstream.py     # EventStream
 └── specs/eventfilter.py         # EventFilter

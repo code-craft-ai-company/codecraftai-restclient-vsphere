@@ -2,7 +2,7 @@
 Automation Mojo Interop - vSphere
 ===================================
 
-The ``automojo-interop-vsphere`` package is a typed, aspect-driven REST client for the VMware vCenter API. It implements the ``IVPNControlPlane``-adjacent virtualization surface as a sibling to other vendor packages in the automojo suite, built on top of ``automojo-restclient-base``. The client replaces the legacy ``VSphereAgent`` from ``automojo-landscaping/services/vmware/`` — a 606-line agent class plus 29 extension modules — with a ``RestClientBase``-derived ``VSphereClient`` and 29 ``RestApiGroup`` subclasses.
+The ``automojo-restclient-vsphere`` package is a typed, aspect-driven REST client for the VMware vCenter API. It implements the ``IVPNControlPlane``-adjacent virtualization surface as a sibling to other vendor packages in the automojo suite, built on top of ``automojo-restclient-base``. The client replaces the legacy ``VSphereAgent`` from ``automojo-landscaping/services/vmware/`` — a 606-line agent class plus 29 extension modules — with a ``RestClientBase``-derived ``VSphereClient`` and 29 ``RestApiGroup`` subclasses.
 
 This package is hand-authored against the documented vCenter REST surface and does **not** use OpenAPI code generation. The reasoning is recorded in the ``AGENTS.md`` "Codegen Decision" section and in the workspace-level ``PLAN-VPN-AND-CLOUD-PROVISIONING.md`` §9.2a.
 
@@ -22,8 +22,8 @@ Repository Structure
 
 - ``development/`` - Runtime environment scripts.
 - ``repository-setup/`` - Repository homing and setup scripts.
-- ``source/packages/automojo/interop/vsphere/`` - Package source code.
-- ``source/testroots/testbase/automojo/tests/interop/vsphere/`` - TestBase test roots.
+- ``source/packages/automojo/restclient/vsphere/`` - Package source code.
+- ``source/testroots/testbase/automojo/tests/restclient/vsphere/`` - TestBase test roots.
 - ``specs/`` - Requirements, design, and task documentation (Kiro-style).
 - ``userguide/`` - Standards, conventions, and documentation.
 

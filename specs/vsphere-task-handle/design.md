@@ -92,7 +92,7 @@ class VSphereTaskNotCancellableError(Exception):
 ## Module Layout
 
 ```
-source/packages/automojo/interop/vsphere/
+source/packages/automojo/restclient/vsphere/
 ├── vspheretaskhandle.py    # VSphereTaskHandle, TaskState, TaskInfo, exceptions
 ```
 

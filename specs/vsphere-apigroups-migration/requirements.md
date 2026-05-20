@@ -4,7 +4,7 @@
 
 The `vsphere-apigroups-migration` feature migrates the 29 `*Ext` extension classes
 from `automojo-landscaping/source/packages/automojo/landscaping/services/vmware/vsphere/ext/`
-into a new `apigroups/` package under `automojo-interop-vsphere`, rebuilt as
+into a new `apigroups/` package under `automojo-restclient-vsphere`, rebuilt as
 `RestApiGroup` subclasses.
 
 This is a structural and naming migration, not a semantic rewrite — the goal is for

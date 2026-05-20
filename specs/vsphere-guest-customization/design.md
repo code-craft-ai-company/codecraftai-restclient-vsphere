@@ -59,7 +59,7 @@ class NetworkConfig:
 ## Module Layout
 
 ```
-source/packages/automojo/interop/vsphere/
+source/packages/automojo/restclient/vsphere/
 ├── apigroups/guestgroup.py            # adds apply_guest_customization_spec
 └── apigroups/customizationrenderers.py  # LinuxCloudInitRenderer, WindowsSysprepRenderer
 ```

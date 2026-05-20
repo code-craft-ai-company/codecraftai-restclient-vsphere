@@ -1,6 +1,6 @@
 # Implementation Plan — VSphere Client REST Base
 
-- [x] 1. Create the `automojo.interop.vsphere` package skeleton (`__init__.py`,
+- [x] 1. Create the `automojo.restclient.vsphere` package skeleton (`__init__.py`,
   `apigroups/__init__.py`, `model/__init__.py`, `specs/__init__.py`,
   `enums/__init__.py`).
 

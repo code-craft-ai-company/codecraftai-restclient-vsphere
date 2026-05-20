@@ -4,7 +4,7 @@
 
 The migration moves the entire `ext/` tree from the legacy
 `automojo-landscaping/services/vmware/vsphere/` location into `apigroups/` under
-`automojo-interop-vsphere`. The migration is mechanical and exhaustive: each `*Ext`
+`automojo-restclient-vsphere`. The migration is mechanical and exhaustive: each `*Ext`
 class becomes a `*Group` class that inherits `RestApiGroup` from
 `automojo-restclient-base`. URL composition, Aspects handling, content-type
 negotiation, multipart upload, and response paging all come from the parent class —
@@ -110,7 +110,7 @@ is invoked, the return type is `VSphereTaskHandle` (owned by `vsphere-task-handl
 ## Module Layout
 
 ```
-source/packages/automojo/interop/vsphere/apigroups/
+source/packages/automojo/restclient/vsphere/apigroups/
 ├── __init__.py
 ├── basegroup.py
 ├── certificatemanagementgroup.py

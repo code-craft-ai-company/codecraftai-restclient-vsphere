@@ -78,7 +78,7 @@ structured logging.
 ## Module Layout
 
 ```
-source/packages/automojo/interop/vsphere/
+source/packages/automojo/restclient/vsphere/
 ├── __init__.py
 ├── vsphereclient.py            # VSphereClient
 ├── vspheresession.py           # session mint/refresh helpers
