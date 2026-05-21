@@ -92,6 +92,35 @@ class TestVSphereTaskHandleStatus(unittest.TestCase):
         return
 
 
+class TestVSphereTaskHandleFetchStatus(unittest.TestCase):
+    """
+        Regression coverage for the ``_fetch_status`` HTTP status check
+        (audit MEDIUM: ``_fetch_status`` decoded ``resp.json()`` without
+        a status check).
+    """
+
+    def test_fetch_status_raises_on_non_ok_status(self) -> None:
+        bad_resp = MagicMock()
+        bad_resp.status_code = 500
+        bad_resp.content = b"internal error"
+
+        session = MagicMock()
+        session.get = MagicMock(return_value=bad_resp)
+
+        client = MagicMock()
+        client.build_url = MagicMock(return_value="https://vc/api/task/t-1")
+        client.ensure_session = MagicMock(return_value=session)
+
+        handle = VSphereTaskHandle(task_id="t-1", client=client)
+
+        with self.assertRaises(Exception):
+            handle.status(aspects=_aspects())
+
+        # The body must NOT have been decoded on a non-2xx response.
+        bad_resp.json.assert_not_called()
+        return
+
+
 class TestVSphereTaskHandleWait(unittest.TestCase):
 
     def test_wait_succeeds(self) -> None:

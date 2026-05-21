@@ -368,7 +368,7 @@ class GuestGroup(BaseGroup):
             )
         try:
             response_body = resp.json()
-        except Exception:
+        except ValueError:
             response_body = {}
         task_id = _extract_task_id(payload=response_body)
         rtnval = VSphereTaskHandle(task_id=task_id, client=client)

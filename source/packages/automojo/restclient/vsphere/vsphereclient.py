@@ -23,6 +23,7 @@ from typing import Any, Dict, Optional
 from http import HTTPStatus
 
 from requests import Session
+from requests.exceptions import RequestException
 
 from automojo.credentials.basecredential import BaseCredential
 from automojo.credentials.basiccredential import BasicCredential
@@ -451,7 +452,7 @@ class VSphereClient(RestClientBase):
                 # does not cause health() to raise.
                 _ = client_clock
                 time_skew = 0.0
-        except Exception:
+        except RequestException:
             reachable = False
             session_valid = False
             time_skew = 0.0

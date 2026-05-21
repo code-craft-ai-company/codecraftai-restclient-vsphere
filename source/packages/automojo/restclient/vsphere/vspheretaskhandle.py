@@ -23,8 +23,10 @@ import logging
 from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
+from http import HTTPStatus
 
 from automojo.errors.exceptions import SemanticError
+from automojo.errors.raising import raise_for_http_status
 from automojo.interfaces.itaskhandle import (
     ITaskHandle,
     TaskResult,
@@ -462,6 +464,10 @@ class VSphereTaskHandle:
         status_url = client.build_url(leaf=status_leaf)
         session = client.ensure_session(aspects=aspects)
         resp = session.get(status_url, timeout=aspects.completion_timeout)
+        if resp.status_code != HTTPStatus.OK:
+            raise_for_http_status(
+                resp.status_code, resp.content, status_url,
+                context="VSphereTaskHandle._fetch_status")
         rtnval = resp.json()
         return rtnval
 

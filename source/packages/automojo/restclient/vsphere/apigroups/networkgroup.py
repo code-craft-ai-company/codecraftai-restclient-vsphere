@@ -127,7 +127,7 @@ class NetworkGroup(BaseGroup):
             raise_for_http_status(resp.status_code, resp.content, url, context="NetworkGroup.create_distributed_switch")
         try:
             body = resp.json()
-        except Exception:
+        except ValueError:
             body = {}
         task_id = _extract_task_id(payload=body)
         rtnval = VSphereTaskHandle(task_id=task_id, client=client)
@@ -155,7 +155,7 @@ class NetworkGroup(BaseGroup):
             raise_for_http_status(resp.status_code, resp.content, url, context="NetworkGroup.delete_distributed_switch")
         try:
             body = resp.json()
-        except Exception:
+        except ValueError:
             body = {}
         task_id = _extract_task_id(payload=body)
         rtnval = VSphereTaskHandle(task_id=task_id, client=client)
@@ -214,7 +214,7 @@ class NetworkGroup(BaseGroup):
             raise_for_http_status(resp.status_code, resp.content, url, context="NetworkGroup.create_port_group")
         try:
             body = resp.json()
-        except Exception:
+        except ValueError:
             body = {}
         task_id = _extract_task_id(payload=body)
         rtnval = VSphereTaskHandle(task_id=task_id, client=client)
@@ -242,7 +242,7 @@ class NetworkGroup(BaseGroup):
             raise_for_http_status(resp.status_code, resp.content, url, context="NetworkGroup.delete_port_group")
         try:
             body = resp.json()
-        except Exception:
+        except ValueError:
             body = {}
         task_id = _extract_task_id(payload=body)
         rtnval = VSphereTaskHandle(task_id=task_id, client=client)

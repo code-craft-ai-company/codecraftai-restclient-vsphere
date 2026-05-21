@@ -328,7 +328,7 @@ class VmGroup(BaseGroup):
             raise_for_http_status(resp.status_code, resp.content, url, context="VmGroup.power")
         try:
             body = resp.json()
-        except Exception:
+        except ValueError:
             body = {}
         task_id = _extract_task_id(payload=body)
         rtnval = VSphereTaskHandle(task_id=task_id, client=client)
@@ -492,7 +492,7 @@ class VmGroup(BaseGroup):
             raise_for_http_status(resp.status_code, resp.content, url, context="VmGroup.attach_disk")
         try:
             body = resp.json()
-        except Exception:
+        except ValueError:
             body = {}
         task_id = _extract_task_id(payload=body)
         rtnval = VSphereTaskHandle(task_id=task_id, client=client)
@@ -522,7 +522,7 @@ class VmGroup(BaseGroup):
             raise_for_http_status(resp.status_code, resp.content, url, context="VmGroup.detach_disk")
         try:
             body = resp.json()
-        except Exception:
+        except ValueError:
             body = {}
         task_id = _extract_task_id(payload=body)
         rtnval = VSphereTaskHandle(task_id=task_id, client=client)
@@ -577,7 +577,7 @@ class VmGroup(BaseGroup):
             raise_for_http_status(resp.status_code, resp.content, url, context="VmGroup.snapshot_create")
         try:
             body = resp.json()
-        except Exception:
+        except ValueError:
             body = {}
         task_id = _extract_task_id(payload=body)
         rtnval = VSphereTaskHandle(task_id=task_id, client=client)
