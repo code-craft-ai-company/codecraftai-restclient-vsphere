@@ -2,7 +2,7 @@
 
 ## Overview
 
-This feature delivers the three sibling packages under `automojo-restclient-vsphere`:
+This feature delivers the three sibling packages under `codecraftai-restclient-vsphere`:
 `model/` for response DTOs, `specs/` for request payloads, and `enums/` for
 reference data. The split eliminates the legacy conflation between
 `datastructures/` (mixed DTOs and specs) and `metasphere/` (reference data jammed
@@ -87,7 +87,7 @@ enums are plain `Enum` subclasses with deterministic vSphere-API string values.
 ## Module Layout
 
 ```
-source/packages/automojo/restclient/vsphere/
+source/packages/ccai/restclient/vsphere/
 ├── model/
 │   ├── __init__.py
 │   ├── vm.py            # VirtualMachineSummary, VirtualMachineInfo

@@ -8,13 +8,13 @@ import unittest
 
 from unittest.mock import MagicMock, patch
 
-from automojo.credentials.basiccredential import BasicCredential
-from automojo.credentials.publickeycredential import PublicKeyCredential
-from automojo.errors.exceptions import SemanticError
+from ccai.credentials.basiccredential import BasicCredential
+from ccai.credentials.publickeycredential import PublicKeyCredential
+from ccai.errors.exceptions import SemanticError
 
-from automojo.restclient.vsphere.vsphereclient import VSphereClient
-from automojo.restclient.vsphere.aspectsvsphere import DEFAULT_VSPHERE_ASPECTS
-from automojo.restclient.vsphere.vspheresession import AUTH_HEADER
+from ccai.restclient.vsphere.vsphereclient import VSphereClient
+from ccai.restclient.vsphere.aspectsvsphere import DEFAULT_VSPHERE_ASPECTS
+from ccai.restclient.vsphere.vspheresession import AUTH_HEADER
 
 
 def _make_credential() -> BasicCredential:
@@ -45,7 +45,7 @@ class TestVSphereClientConstruction(unittest.TestCase):
         # Patch Session at the module level used by the session-mint
         # helper.  If construction issues network I/O, this would be
         # called.
-        with patch("automojo.restclient.vsphere.vsphereclient.Session") as session_cls:
+        with patch("ccai.restclient.vsphere.vsphereclient.Session") as session_cls:
             client = VSphereClient(host="vc.example.com", credential=_make_credential())
             self.assertEqual(session_cls.call_count, 0)
             _ = client
@@ -91,7 +91,7 @@ class TestVSphereClientGroupAccess(unittest.TestCase):
         return
 
     def test_vm_group_property_returns_vmgroup(self) -> None:
-        from automojo.restclient.vsphere.apigroups.vmgroup import VmGroup
+        from ccai.restclient.vsphere.apigroups.vmgroup import VmGroup
         vm = self.client.Vm
         self.assertIsInstance(vm, VmGroup)
         return
@@ -153,7 +153,7 @@ class TestVSphereClientAuthentication(unittest.TestCase):
         fake_response.json.return_value = {"value": "session-token-xyz"}
         fake_session.post.return_value = fake_response
 
-        with patch("automojo.restclient.vsphere.vsphereclient.Session", return_value=fake_session):
+        with patch("ccai.restclient.vsphere.vsphereclient.Session", return_value=fake_session):
             client.authenticate()
 
         self.assertEqual(client.auth_token, "session-token-xyz")
@@ -161,7 +161,7 @@ class TestVSphereClientAuthentication(unittest.TestCase):
         return
 
     def test_authenticate_non200_raises_httpforbidden(self) -> None:
-        from automojo.errors.exceptions import HttpForbiddenError
+        from ccai.errors.exceptions import HttpForbiddenError
 
         client = VSphereClient(host="vc.example.com", credential=_make_credential())
 
@@ -172,7 +172,7 @@ class TestVSphereClientAuthentication(unittest.TestCase):
         fake_response.content = b"nope"
         fake_session.post.return_value = fake_response
 
-        with patch("automojo.restclient.vsphere.vsphereclient.Session", return_value=fake_session):
+        with patch("ccai.restclient.vsphere.vsphereclient.Session", return_value=fake_session):
             with self.assertRaises(HttpForbiddenError):
                 client.authenticate()
         return
@@ -181,7 +181,7 @@ class TestVSphereClientAuthentication(unittest.TestCase):
 class TestVSphereClientLeafValidation(unittest.TestCase):
 
     def test_basegroup_subclass_validates_baseleaf(self) -> None:
-        from automojo.restclient.vsphere.apigroups.basegroup import BaseGroup
+        from ccai.restclient.vsphere.apigroups.basegroup import BaseGroup
         with self.assertRaises(SemanticError):
 
             class BadGroup(BaseGroup):

@@ -9,7 +9,7 @@ implementation renders cloud-init datasource files; on Windows it renders a sysp
 unattend.xml.
 
 Guest customization is vSphere's user-data equivalent — the same place
-`automojo-provisioning` injects `tailscale up …` for VPN bring-up (per §6.3 of
+`codecraftai-provisioning` injects `tailscale up …` for VPN bring-up (per §6.3 of
 `PLAN-VPN-AND-CLOUD-PROVISIONING.md`).
 
 ---

@@ -13,10 +13,10 @@ from unittest.mock import MagicMock
 
 from hypothesis import given, settings, strategies as st
 
-from automojo.errors.exceptions import SemanticError
-from automojo.interfaces.itaskhandle import ITaskHandle
-from automojo.restclient.vsphere.aspectsvsphere import AspectsVSphere
-from automojo.restclient.vsphere.vspheretaskhandle import (
+from ccai.errors.exceptions import SemanticError
+from ccai.interfaces.itaskhandle import ITaskHandle
+from ccai.restclient.vsphere.aspectsvsphere import AspectsVSphere
+from ccai.restclient.vsphere.vspheretaskhandle import (
     TaskInfo,
     TaskState,
     TERMINAL_STATES,

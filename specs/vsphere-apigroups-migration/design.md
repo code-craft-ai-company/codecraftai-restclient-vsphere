@@ -3,10 +3,10 @@
 ## Overview
 
 The migration moves the entire `ext/` tree from the legacy
-`automojo-landscaping/services/vmware/vsphere/` location into `apigroups/` under
-`automojo-restclient-vsphere`. The migration is mechanical and exhaustive: each `*Ext`
+`codecraftai-landscaping/services/vmware/vsphere/` location into `apigroups/` under
+`codecraftai-restclient-vsphere`. The migration is mechanical and exhaustive: each `*Ext`
 class becomes a `*Group` class that inherits `RestApiGroup` from
-`automojo-restclient-base`. URL composition, Aspects handling, content-type
+`codecraftai-restclient-base`. URL composition, Aspects handling, content-type
 negotiation, multipart upload, and response paging all come from the parent class —
 no hand-rolled HTTP plumbing survives in any group.
 
@@ -43,7 +43,7 @@ the `model/` package owned by `vsphere-data-model-and-specs`.
                              │ inherits from
                              ▼
 ┌────────────────────────────────────────────────────────────────┐
-│         RestApiGroup (automojo-restclient-base)                │
+│         RestApiGroup (codecraftai-restclient-base)                │
 │   - compose_url(...)                                           │
 │   - request(method, url, aspects=...)                          │
 │   - content-type negotiation, multipart upload, paging         │
@@ -110,7 +110,7 @@ is invoked, the return type is `VSphereTaskHandle` (owned by `vsphere-task-handl
 ## Module Layout
 
 ```
-source/packages/automojo/restclient/vsphere/apigroups/
+source/packages/ccai/restclient/vsphere/apigroups/
 ├── __init__.py
 ├── basegroup.py
 ├── certificatemanagementgroup.py
@@ -155,7 +155,7 @@ source/packages/automojo/restclient/vsphere/apigroups/
   `vsphere-ovf-deploy`, `vsphere-guest-customization`, `vsphere-inventory-helpers`,
   `vsphere-events-stream`, `vsphere-linked-mode` — add new methods to specific groups
   beyond the mechanical migration.
-- `automojo-restclient-base.restapigroup` — the parent class.
+- `codecraftai-restclient-base.restapigroup` — the parent class.
 
 ---
 

@@ -14,7 +14,7 @@ import inspect
 import os
 import unittest
 
-from automojo.restclient.base.restapigroup import RestApiGroup
+from ccai.restclient.base.restapigroup import RestApiGroup
 
 
 GROUP_MAPPING = [
@@ -59,7 +59,7 @@ class TestApiGroupStructural(unittest.TestCase):
     def test_each_group_imports_and_inherits_restapigroup(self) -> None:
         for module_name, class_name in GROUP_MAPPING:
             with self.subTest(module=module_name):
-                full_path = "automojo.restclient.vsphere.apigroups." + module_name
+                full_path = "ccai.restclient.vsphere.apigroups." + module_name
                 module = importlib.import_module(full_path)
                 self.assertTrue(hasattr(module, class_name))
                 group_class = getattr(module, class_name)
@@ -69,7 +69,7 @@ class TestApiGroupStructural(unittest.TestCase):
     def test_each_group_declares_valid_baseleaf(self) -> None:
         for module_name, class_name in GROUP_MAPPING:
             with self.subTest(module=module_name):
-                full_path = "automojo.restclient.vsphere.apigroups." + module_name
+                full_path = "ccai.restclient.vsphere.apigroups." + module_name
                 module = importlib.import_module(full_path)
                 group_class = getattr(module, class_name)
                 base_leaf = group_class.BASE_LEAF
@@ -87,7 +87,7 @@ class TestApiGroupStructural(unittest.TestCase):
         forbidden = ("@retry", "@backoff", "@circuit_breaker", "@reliable")
         apigroups_dir = os.path.dirname(
             importlib.import_module(
-                "automojo.restclient.vsphere.apigroups.basegroup"
+                "ccai.restclient.vsphere.apigroups.basegroup"
             ).__file__
         )
         for entry in os.listdir(apigroups_dir):
@@ -104,7 +104,7 @@ class TestApiGroupStructural(unittest.TestCase):
 class TestApiGroupAspectsForwarding(unittest.TestCase):
 
     def test_vmgroup_methods_take_aspects(self) -> None:
-        from automojo.restclient.vsphere.apigroups.vmgroup import VmGroup
+        from ccai.restclient.vsphere.apigroups.vmgroup import VmGroup
         for method_name in ("create", "clone", "delete", "get", "list"):
             method = getattr(VmGroup, method_name)
             sig = inspect.signature(method)

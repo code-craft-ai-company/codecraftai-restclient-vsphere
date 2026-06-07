@@ -4,7 +4,7 @@
 
 The `vsphere-content-library-deploy` feature wraps the vSphere Content Library API
 so a VM template stored as an OVF item can be deployed directly into a target
-placement. This is the path `automojo-provisioning` `venue-vsphere` uses for
+placement. This is the path `codecraftai-provisioning` `venue-vsphere` uses for
 "give me an Ubuntu 24.04 VM from the library" — the most common image-resolution
 flow on private VMware infrastructure.
 

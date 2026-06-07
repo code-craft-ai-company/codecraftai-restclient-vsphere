@@ -10,13 +10,13 @@ import unittest
 from http import HTTPStatus
 from unittest.mock import MagicMock
 
-from automojo.credentials.basiccredential import BasicCredential
+from ccai.credentials.basiccredential import BasicCredential
 
-from automojo.restclient.vsphere.apigroups.inventoryerrors import (
+from ccai.restclient.vsphere.apigroups.inventoryerrors import (
     VSphereResourceNotFoundError,
 )
-from automojo.restclient.vsphere.model.linkedvcenter import LinkedVCenterRecord
-from automojo.restclient.vsphere.vsphereclient import VSphereClient
+from ccai.restclient.vsphere.model.linkedvcenter import LinkedVCenterRecord
+from ccai.restclient.vsphere.vsphereclient import VSphereClient
 
 
 def _make_client(host: str = "vc.example.com") -> VSphereClient:

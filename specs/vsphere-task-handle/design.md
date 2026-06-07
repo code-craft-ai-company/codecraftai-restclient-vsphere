@@ -4,13 +4,13 @@
 
 `VSphereTaskHandle` is the synchronous poll handle returned by every long-running
 vSphere API call. It conforms to the `ITaskHandle` protocol declared in
-`automojo-interfaces` and reuses the generic `TaskHandle` base implemented in
-`automojo-restclient-base` for the poll-loop scaffolding; the vSphere-specific
+`codecraftai-interfaces` and reuses the generic `TaskHandle` base implemented in
+`codecraftai-restclient-base` for the poll-loop scaffolding; the vSphere-specific
 subclass adds task-info parsing, the terminal-state set, the cancellation endpoint,
 and the typed exceptions.
 
 The decision to expose tasks synchronously (rather than via `asyncio`) is fixed in
-§6.6 of `PLAN-VPN-AND-CLOUD-PROVISIONING.md`: every other automojo API is
+§6.6 of `PLAN-VPN-AND-CLOUD-PROVISIONING.md`: every other ccai API is
 sync-with-Aspects, and consistency outweighs the small concurrency win from async.
 Callers needing concurrency drive multiple `VSphereTaskHandle.wait` calls on threads
 or use the higher-level Aspects-based futures pattern that lives in the
@@ -38,7 +38,7 @@ provisioning layer.
                           │ uses
                           ▼
 ┌──────────────────────────────────────────────────────────────┐
-│        TaskHandle (automojo-restclient-base)                 │
+│        TaskHandle (codecraftai-restclient-base)                 │
 │   - generic poll loop                                        │
 │   - Aspects-controlled interval/timeout/logging              │
 │   - state-transition logging                                 │
@@ -92,7 +92,7 @@ class VSphereTaskNotCancellableError(Exception):
 ## Module Layout
 
 ```
-source/packages/automojo/restclient/vsphere/
+source/packages/ccai/restclient/vsphere/
 ├── vspheretaskhandle.py    # VSphereTaskHandle, TaskState, TaskInfo, exceptions
 ```
 
@@ -134,8 +134,8 @@ Key invariants:
 
 ## See Also
 
-- `automojo-interfaces.itaskhandle` — protocol declaration.
-- `automojo-restclient-base.taskhandle` — generic poll-loop base class.
+- `codecraftai-interfaces.itaskhandle` — protocol declaration.
+- `codecraftai-restclient-base.taskhandle` — generic poll-loop base class.
 - `vsphere-apigroups-migration` — every async-bearing group method returns a
   `VSphereTaskHandle`.
 - `vsphere-vm-lifecycle-waiters` — VM-specific waiters that compose `wait()`.

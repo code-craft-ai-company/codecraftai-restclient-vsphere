@@ -5,10 +5,10 @@
 The `vsphere-vm-lifecycle-waiters` feature adds VM-specific waiter methods to
 `VmGroup` and `GuestGroup` that poll until specific runtime conditions are met:
 power state, VMware Tools readiness, and IP address allocation. The waiters compose
-the generic `automojo-waiting` package's poll-loop primitives and accept `AspectsRest`
+the generic `codecraftai-waiting` package's poll-loop primitives and accept `AspectsRest`
 for interval and timeout control.
 
-These waiters are required by `automojo-provisioning/venues/vsphere` to implement
+These waiters are required by `codecraftai-provisioning/venues/vsphere` to implement
 the verification stage of `apply` (per §6.3 of `PLAN-VPN-AND-CLOUD-PROVISIONING.md`).
 
 ---

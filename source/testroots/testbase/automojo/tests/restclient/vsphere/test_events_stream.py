@@ -12,13 +12,13 @@ import unittest
 from typing import List
 from unittest.mock import MagicMock
 
-from automojo.credentials.basiccredential import BasicCredential
+from ccai.credentials.basiccredential import BasicCredential
 
-from automojo.restclient.vsphere.apigroups.eventsgroup import EventsGroup
-from automojo.restclient.vsphere.apigroups.eventstream import EventStream
-from automojo.restclient.vsphere.model.event import EventRecord
-from automojo.restclient.vsphere.specs.eventfilter import EventFilter
-from automojo.restclient.vsphere.vsphereclient import VSphereClient
+from ccai.restclient.vsphere.apigroups.eventsgroup import EventsGroup
+from ccai.restclient.vsphere.apigroups.eventstream import EventStream
+from ccai.restclient.vsphere.model.event import EventRecord
+from ccai.restclient.vsphere.specs.eventfilter import EventFilter
+from ccai.restclient.vsphere.vsphereclient import VSphereClient
 
 
 def _make_client() -> VSphereClient:

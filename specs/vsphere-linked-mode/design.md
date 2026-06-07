@@ -43,7 +43,7 @@ class LinkedVCenterRecord:
 ## Module Layout
 
 ```
-source/packages/automojo/restclient/vsphere/
+source/packages/ccai/restclient/vsphere/
 ├── vsphereclient.py              # adds linked_vcenters, for_vcenter
 └── model/linkedvcenter.py        # LinkedVCenterRecord
 ```

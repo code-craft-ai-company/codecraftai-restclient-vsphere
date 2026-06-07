@@ -8,34 +8,34 @@ import unittest
 
 from hypothesis import given, settings, strategies as st
 
-from automojo.restclient.vsphere.model.summary import (
+from ccai.restclient.vsphere.model.summary import (
     ClusterSummary,
     DatacenterSummary,
     FolderSummary,
     HostSummary,
 )
-from automojo.restclient.vsphere.model.vm import (
+from ccai.restclient.vsphere.model.vm import (
     VirtualMachineInfo,
     VirtualMachineSummary,
 )
-from automojo.restclient.vsphere.model.network import (
+from ccai.restclient.vsphere.model.network import (
     NetworkSummary,
     DistributedSwitchSummary,
 )
-from automojo.restclient.vsphere.model.datastore import (
+from ccai.restclient.vsphere.model.datastore import (
     DatastoreInfo,
     DatastoreSummary,
 )
-from automojo.restclient.vsphere.model.ovf import (
+from ccai.restclient.vsphere.model.ovf import (
     OvfDescriptor,
     OvfDeployResult,
 )
-from automojo.restclient.vsphere.model.event import EventRecord
-from automojo.restclient.vsphere.specs.vmcreate import VmCreateSpec
-from automojo.restclient.vsphere.specs.vmclone import VmCloneSpec
-from automojo.restclient.vsphere.specs.vmsnapshot import VmSnapshotSpec
-from automojo.restclient.vsphere.specs.vmpoweraction import VmPowerActionSpec
-from automojo.restclient.vsphere.specs.vmguestcustomization import VmGuestCustomizationSpec
+from ccai.restclient.vsphere.model.event import EventRecord
+from ccai.restclient.vsphere.specs.vmcreate import VmCreateSpec
+from ccai.restclient.vsphere.specs.vmclone import VmCloneSpec
+from ccai.restclient.vsphere.specs.vmsnapshot import VmSnapshotSpec
+from ccai.restclient.vsphere.specs.vmpoweraction import VmPowerActionSpec
+from ccai.restclient.vsphere.specs.vmguestcustomization import VmGuestCustomizationSpec
 
 
 class TestModelRoundTrip(unittest.TestCase):

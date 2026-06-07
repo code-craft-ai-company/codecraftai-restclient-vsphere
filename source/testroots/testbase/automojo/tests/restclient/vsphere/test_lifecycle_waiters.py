@@ -13,15 +13,15 @@ import unittest
 from typing import List
 from unittest.mock import MagicMock
 
-from automojo.credentials.basiccredential import BasicCredential
+from ccai.credentials.basiccredential import BasicCredential
 
-from automojo.restclient.vsphere.apigroups.waiters import (
+from ccai.restclient.vsphere.apigroups.waiters import (
     VSphereWaitInvalidStateError,
     VSphereWaitTimeoutError,
 )
-from automojo.restclient.vsphere.aspectsvsphere import AspectsVSphere
-from automojo.restclient.vsphere.enums.powerstate import PowerState
-from automojo.restclient.vsphere.vsphereclient import VSphereClient
+from ccai.restclient.vsphere.aspectsvsphere import AspectsVSphere
+from ccai.restclient.vsphere.enums.powerstate import PowerState
+from ccai.restclient.vsphere.vsphereclient import VSphereClient
 
 
 def _make_client() -> VSphereClient:
@@ -291,7 +291,7 @@ class TestWaitForIpAddress(unittest.TestCase):
         return
 
     def test_invalid_family_raises_semantic(self) -> None:
-        from automojo.errors.exceptions import SemanticError
+        from ccai.errors.exceptions import SemanticError
         client = _make_client()
         aspects = _aspects()
         with self.assertRaises(SemanticError):

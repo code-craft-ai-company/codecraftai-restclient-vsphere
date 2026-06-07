@@ -9,12 +9,12 @@ import unittest
 from http import HTTPStatus
 from unittest.mock import MagicMock
 
-from automojo.credentials.basiccredential import BasicCredential
+from ccai.credentials.basiccredential import BasicCredential
 
-from automojo.restclient.vsphere.aspectsvsphere import DEFAULT_VSPHERE_ASPECTS
-from automojo.restclient.vsphere.model.summary import DatacenterSummary, FolderSummary, HostSummary
-from automojo.restclient.vsphere.model.vm import VirtualMachineSummary
-from automojo.restclient.vsphere.vsphereclient import VSphereClient
+from ccai.restclient.vsphere.aspectsvsphere import DEFAULT_VSPHERE_ASPECTS
+from ccai.restclient.vsphere.model.summary import DatacenterSummary, FolderSummary, HostSummary
+from ccai.restclient.vsphere.model.vm import VirtualMachineSummary
+from ccai.restclient.vsphere.vsphereclient import VSphereClient
 
 
 def _make_client_with_fake_session():
@@ -72,8 +72,8 @@ class TestVmGroupCalls(unittest.TestCase):
         return
 
     def test_create_returns_task_handle(self) -> None:
-        from automojo.restclient.vsphere.specs.vmcreate import VmCreateSpec
-        from automojo.restclient.vsphere.vspheretaskhandle import VSphereTaskHandle
+        from ccai.restclient.vsphere.specs.vmcreate import VmCreateSpec
+        from ccai.restclient.vsphere.vspheretaskhandle import VSphereTaskHandle
 
         client, session = _make_client_with_fake_session()
         post_resp = MagicMock()

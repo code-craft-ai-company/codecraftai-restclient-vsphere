@@ -2,7 +2,7 @@
 
 ## Overview
 
-The waiters compose the generic poll-loop primitives provided by `automojo-waiting`
+The waiters compose the generic poll-loop primitives provided by `codecraftai-waiting`
 and the typed return shapes provided by `vsphere-data-model-and-specs`. They live
 as methods on the relevant API groups (`VmGroup` for power state; `GuestGroup` for
 tools-ready and IP-address) rather than as free functions, so callers discover them
@@ -21,7 +21,7 @@ naturally through the same client surface as the rest of the API.
                       │ delegates to
                       ▼
 ┌──────────────────────────────────────────────────────┐
-│   automojo-waiting.PollLoop                          │
+│   codecraftai-waiting.PollLoop                          │
 │   - interval, timeout from AspectsRest               │
 │   - typed predicate + result extractor               │
 └──────────────────────────────────────────────────────┘
@@ -59,7 +59,7 @@ package root.
 
 ## See Also
 
-- `automojo-waiting` — poll-loop primitive.
+- `codecraftai-waiting` — poll-loop primitive.
 - `vsphere-task-handle` — sibling sync-poll pattern (different scope: tasks vs
   runtime states).
 - `vsphere-data-model-and-specs` — `PowerState` and related enums.

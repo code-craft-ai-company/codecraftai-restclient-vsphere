@@ -64,7 +64,7 @@ class VSphereAmbiguousResolutionError(Exception):
 ## Module Layout
 
 ```
-source/packages/automojo/restclient/vsphere/
+source/packages/ccai/restclient/vsphere/
 ├── apigroups/inventorygroup.py     # adds the helpers
 └── apigroups/inventoryerrors.py    # VSphereResourceNotFoundError, VSphereAmbiguousResolutionError
 ```
