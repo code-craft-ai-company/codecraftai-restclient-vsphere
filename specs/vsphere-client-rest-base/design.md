@@ -5,9 +5,9 @@
 `VSphereClient` is a `RestClientBase` subclass that owns vSphere session-token
 management and exposes the 29 API groups (delivered by `vsphere-apigroups-migration`)
 as cached properties. It replaces the hand-rolled `VSphereAgent` in
-`automojo-landscaping` and removes its `requests.Session` plumbing, manual session
+`codecraftai-landscaping` and removes its `requests.Session` plumbing, manual session
 renewal, and baked-in retry behaviour in favour of the shared infrastructure provided
-by `automojo-restclient-base`.
+by `codecraftai-restclient-base`.
 
 This feature delivers only the client shell — authentication, session renewal, dual
 URL composition, property-based group access, filter state, health probe, and the
@@ -27,7 +27,7 @@ data model all live in companion specs.
                              ▼
 ┌────────────────────────────────────────────────────────────────┐
 │                       VSphereClient                            │
-│  (subclass of automojo-restclient-base.RestClientBase)         │
+│  (subclass of codecraftai-restclient-base.RestClientBase)         │
 │                                                                │
 │   _authenticate()    ──► POST /rest/com/vmware/cis/session     │
 │   build_api_url(leaf)   build_rest_url(leaf)                   │
@@ -41,7 +41,7 @@ data model all live in companion specs.
                              │ delegates to
                              ▼
 ┌────────────────────────────────────────────────────────────────┐
-│             RestClientBase (automojo-restclient-base)          │
+│             RestClientBase (codecraftai-restclient-base)          │
 │   - shared HTTP session                                        │
 │   - raise_for_http_status                                      │
 │   - AUTHENTICATION_FAILURES hook                               │
@@ -78,7 +78,7 @@ structured logging.
 ## Module Layout
 
 ```
-source/packages/automojo/restclient/vsphere/
+source/packages/ccai/restclient/vsphere/
 ├── __init__.py
 ├── vsphereclient.py            # VSphereClient
 ├── vspheresession.py           # session mint/refresh helpers
@@ -95,15 +95,15 @@ source/packages/automojo/restclient/vsphere/
 - `vsphere-apigroups-migration` — the 29 `RestApiGroup` subclasses bound to this client.
 - `vsphere-task-handle` — the `VSphereTaskHandle` returned by async-task-bearing calls.
 - `vsphere-data-model-and-specs` — typed DTOs and request payloads used by groups.
-- `automojo-restclient-base.restclientbase` — the parent class.
-- `automojo-credentials.vspherecredential` — the credential type accepted by the
+- `codecraftai-restclient-base.restclientbase` — the parent class.
+- `codecraftai-credentials.vspherecredential` — the credential type accepted by the
   client.
 
 ---
 
 ## Testing Strategy
 
-Unit tests use `MockHttpSession` (the same shim used elsewhere in `automojo-interop`
+Unit tests use `MockHttpSession` (the same shim used elsewhere in `codecraftai-interop`
 REST clients) keyed on URL + method:
 
 1. **Construction tests** — credential-type validation, no I/O on construct.

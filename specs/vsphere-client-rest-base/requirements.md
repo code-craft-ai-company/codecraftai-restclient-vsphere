@@ -3,11 +3,11 @@
 ## Introduction
 
 The `vsphere-client-rest-base` feature provides the foundational `VSphereClient` class
-for the `automojo-restclient-vsphere` package. It is the rebuilt replacement for the
-legacy `automojo-landscaping/services/vmware/vsphere/vsphereagent.py` client, but
+for the `codecraftai-restclient-vsphere` package. It is the rebuilt replacement for the
+legacy `codecraftai-landscaping/services/vmware/vsphere/vsphereagent.py` client, but
 constructed as a `RestClientBase` subclass so it inherits Aspects-controlled
 behaviour, structured logging, retry/backoff, and the shared `raise_for_http_status`
-error reclassification from `automojo-restclient-base`.
+error reclassification from `codecraftai-restclient-base`.
 
 This feature delivers only the client itself — session token mint and refresh, dual
 URL roots for vSphere's `/api` and `/rest` namespaces, and the property-based access

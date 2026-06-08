@@ -12,16 +12,16 @@ from unittest.mock import MagicMock
 
 from hypothesis import given, settings, strategies as st
 
-from automojo.credentials.basiccredential import BasicCredential
+from ccai.credentials.basiccredential import BasicCredential
 
-from automojo.restclient.vsphere.apigroups.inventoryerrors import (
+from ccai.restclient.vsphere.apigroups.inventoryerrors import (
     VSphereAmbiguousResolutionError,
     VSphereResourceNotFoundError,
 )
-from automojo.restclient.vsphere.model.datastore import DatastoreSummary
-from automojo.restclient.vsphere.model.summary import HostSummary
-from automojo.restclient.vsphere.model.vm import VirtualMachineSummary
-from automojo.restclient.vsphere.vsphereclient import VSphereClient
+from ccai.restclient.vsphere.model.datastore import DatastoreSummary
+from ccai.restclient.vsphere.model.summary import HostSummary
+from ccai.restclient.vsphere.model.vm import VirtualMachineSummary
+from ccai.restclient.vsphere.vsphereclient import VSphereClient
 
 
 _BYTES_PER_GB = 1024 * 1024 * 1024

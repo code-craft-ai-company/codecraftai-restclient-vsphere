@@ -12,8 +12,8 @@ Per the design decision in §6.6 of `PLAN-VPN-AND-CLOUD-PROVISIONING.md`, the cl
 exposes these tasks **synchronously** via poll-with-Aspects — no `asyncio`. Aspects
 controls poll interval, timeout, and logging on every wait call.
 
-`VSphereTaskHandle` implements the `ITaskHandle` protocol from `automojo-interfaces`
-and is built on the reusable `TaskHandle` base in `automojo-restclient-base`. It
+`VSphereTaskHandle` implements the `ITaskHandle` protocol from `codecraftai-interfaces`
+and is built on the reusable `TaskHandle` base in `codecraftai-restclient-base`. It
 adds vSphere-specific concerns: task-info parsing (`TaskInfo`, `TaskState`),
 progress reporting, and known-state transitions.
 
@@ -90,7 +90,7 @@ decides the task is no longer needed.
 ### Requirement 5: ITaskHandle Conformance
 
 **User Story:** As a provisioning engine author, I want `VSphereTaskHandle` to
-conform to `ITaskHandle` from `automojo-interfaces`, so I can drive task waits
+conform to `ITaskHandle` from `codecraftai-interfaces`, so I can drive task waits
 generically across any provisioning venue.
 
 #### Acceptance Criteria

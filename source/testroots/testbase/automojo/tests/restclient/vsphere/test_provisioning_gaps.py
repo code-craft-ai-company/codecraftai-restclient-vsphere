@@ -11,14 +11,14 @@ import unittest
 from http import HTTPStatus
 from unittest.mock import MagicMock
 
-from automojo.credentials.basiccredential import BasicCredential
+from ccai.credentials.basiccredential import BasicCredential
 
-from automojo.restclient.vsphere.aspectsvsphere import (
+from ccai.restclient.vsphere.aspectsvsphere import (
     AspectsVSphere,
     vsphere_aspects_from_aspects,
 )
-from automojo.restclient.vsphere.vsphereclient import VSphereClient
-from automojo.restclient.vsphere.vspheretaskhandle import VSphereTaskHandle
+from ccai.restclient.vsphere.vsphereclient import VSphereClient
+from ccai.restclient.vsphere.vspheretaskhandle import VSphereTaskHandle
 
 
 def _make_client_with_fake_session():

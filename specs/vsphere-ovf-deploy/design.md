@@ -43,7 +43,7 @@ class OvfDeploySpec(SchemaObject):
 ## Module Layout
 
 ```
-source/packages/automojo/restclient/vsphere/
+source/packages/ccai/restclient/vsphere/
 ├── apigroups/ovfgroup.py     # adds parse_descriptor, deploy_from_url, deploy_from_local_ovf
 └── specs/ovfdeploy.py        # OvfDeploySpec
 ```

@@ -10,10 +10,10 @@ from unittest.mock import MagicMock
 
 from hypothesis import given, settings, strategies as st
 
-from automojo.credentials.basiccredential import BasicCredential
-from automojo.errors.exceptions import SemanticError
+from ccai.credentials.basiccredential import BasicCredential
+from ccai.errors.exceptions import SemanticError
 
-from automojo.restclient.vsphere.vsphereclient import VSphereClient
+from ccai.restclient.vsphere.vsphereclient import VSphereClient
 
 
 _GROUP_LEAFS = [
@@ -71,7 +71,7 @@ class TestUrlCompositionExamples(unittest.TestCase):
         return
 
     def test_unknown_prefix_rejected_at_subclass_time(self) -> None:
-        from automojo.restclient.vsphere.apigroups.basegroup import BaseGroup
+        from ccai.restclient.vsphere.apigroups.basegroup import BaseGroup
         with self.assertRaises(SemanticError):
             class _Bogus(BaseGroup):
                 BASE_LEAF = "/legacy/no/prefix"
@@ -105,7 +105,7 @@ class TestUrlCompositionProperties(unittest.TestCase):
         # Build a synthetic group dynamically.  We can't use the cached
         # client groups because they have a fixed BASE_LEAF; instead we
         # exercise the BaseGroup.compose_url helper directly.
-        from automojo.restclient.vsphere.apigroups.basegroup import BaseGroup
+        from ccai.restclient.vsphere.apigroups.basegroup import BaseGroup
 
         class _Synthetic(BaseGroup):
             BASE_LEAF = base_leaf
@@ -122,7 +122,7 @@ class TestUrlCompositionProperties(unittest.TestCase):
     @settings(max_examples=30, deadline=None)
     @given(st.sampled_from(_GROUP_LEAFS), st.lists(_safe_part, min_size=1, max_size=4))
     def test_determinism(self, base_leaf, parts) -> None:
-        from automojo.restclient.vsphere.apigroups.basegroup import BaseGroup
+        from ccai.restclient.vsphere.apigroups.basegroup import BaseGroup
 
         class _Synthetic(BaseGroup):
             BASE_LEAF = base_leaf
@@ -136,7 +136,7 @@ class TestUrlCompositionProperties(unittest.TestCase):
     @settings(max_examples=30, deadline=None)
     @given(st.dictionaries(_safe_part, _safe_part, min_size=0, max_size=6))
     def test_sort_params_idempotent_and_sorted(self, raw) -> None:
-        from automojo.restclient.vsphere.apigroups.basegroup import BaseGroup
+        from ccai.restclient.vsphere.apigroups.basegroup import BaseGroup
 
         class _Synthetic(BaseGroup):
             BASE_LEAF = "/api/vcenter/vm"

@@ -10,17 +10,17 @@ import unittest
 from http import HTTPStatus
 from unittest.mock import MagicMock
 
-from automojo.credentials.basiccredential import BasicCredential
+from ccai.credentials.basiccredential import BasicCredential
 
-from automojo.restclient.vsphere.apigroups.inventoryerrors import (
+from ccai.restclient.vsphere.apigroups.inventoryerrors import (
     VSphereAmbiguousResolutionError,
     VSphereResourceNotFoundError,
 )
-from automojo.restclient.vsphere.model.library import LibraryItemSummary
-from automojo.restclient.vsphere.specs.contentdeploy import ContentDeploySpec
-from automojo.restclient.vsphere.specs.vmplacement import VmPlacementSpec
-from automojo.restclient.vsphere.vsphereclient import VSphereClient
-from automojo.restclient.vsphere.vspheretaskhandle import VSphereTaskHandle
+from ccai.restclient.vsphere.model.library import LibraryItemSummary
+from ccai.restclient.vsphere.specs.contentdeploy import ContentDeploySpec
+from ccai.restclient.vsphere.specs.vmplacement import VmPlacementSpec
+from ccai.restclient.vsphere.vsphereclient import VSphereClient
+from ccai.restclient.vsphere.vspheretaskhandle import VSphereTaskHandle
 
 
 def _make_client():

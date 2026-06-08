@@ -12,13 +12,13 @@ import unittest
 from http import HTTPStatus
 from unittest.mock import MagicMock
 
-from automojo.credentials.basiccredential import BasicCredential
-from automojo.errors.exceptions import SemanticError
+from ccai.credentials.basiccredential import BasicCredential
+from ccai.errors.exceptions import SemanticError
 
-from automojo.restclient.vsphere.specs.ovfdeploy import OvfDeploySpec
-from automojo.restclient.vsphere.specs.vmplacement import VmPlacementSpec
-from automojo.restclient.vsphere.vsphereclient import VSphereClient
-from automojo.restclient.vsphere.vspheretaskhandle import VSphereTaskHandle
+from ccai.restclient.vsphere.specs.ovfdeploy import OvfDeploySpec
+from ccai.restclient.vsphere.specs.vmplacement import VmPlacementSpec
+from ccai.restclient.vsphere.vsphereclient import VSphereClient
+from ccai.restclient.vsphere.vspheretaskhandle import VSphereTaskHandle
 
 
 def _make_client():

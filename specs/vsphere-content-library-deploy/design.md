@@ -56,7 +56,7 @@ class ContentDeploySpec(SchemaObject):
 ## Module Layout
 
 ```
-source/packages/automojo/restclient/vsphere/
+source/packages/ccai/restclient/vsphere/
 ├── apigroups/contentgroup.py     # adds list_items, find_item, deploy_ovf_item
 ├── model/library.py              # LibraryItemSummary
 └── specs/contentdeploy.py        # ContentDeploySpec

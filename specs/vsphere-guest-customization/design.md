@@ -59,7 +59,7 @@ class NetworkConfig:
 ## Module Layout
 
 ```
-source/packages/automojo/restclient/vsphere/
+source/packages/ccai/restclient/vsphere/
 ├── apigroups/guestgroup.py            # adds apply_guest_customization_spec
 └── apigroups/customizationrenderers.py  # LinuxCloudInitRenderer, WindowsSysprepRenderer
 ```
@@ -70,7 +70,7 @@ source/packages/automojo/restclient/vsphere/
 
 - `vsphere-data-model-and-specs` — `VmGuestCustomizationSpec`.
 - `vsphere-task-handle` — return type.
-- `automojo-provisioning` `cloud-init-injection` — sibling helper that builds the
+- `codecraftai-provisioning` `cloud-init-injection` — sibling helper that builds the
   cloud-init blocks the renderer accepts.
 
 ---

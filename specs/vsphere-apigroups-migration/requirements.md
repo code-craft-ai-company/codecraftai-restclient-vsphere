@@ -3,8 +3,8 @@
 ## Introduction
 
 The `vsphere-apigroups-migration` feature migrates the 29 `*Ext` extension classes
-from `automojo-landscaping/source/packages/automojo/landscaping/services/vmware/vsphere/ext/`
-into a new `apigroups/` package under `automojo-restclient-vsphere`, rebuilt as
+from `codecraftai-landscaping/source/packages/ccai/landscaping/services/vmware/vsphere/ext/`
+into a new `apigroups/` package under `codecraftai-restclient-vsphere`, rebuilt as
 `RestApiGroup` subclasses.
 
 This is a structural and naming migration, not a semantic rewrite — the goal is for
@@ -47,7 +47,7 @@ negotiation, and response paging come from a single audited source.
 #### Acceptance Criteria
 
 1. WHEN any `*Group` class is loaded THE SYSTEM SHALL verify it inherits from
-   `automojo.restclient.base.restapigroup.RestApiGroup`.
+   `ccai.restclient.base.restapigroup.RestApiGroup`.
 2. WHEN any `*Group` class declares a `BASE_LEAF` THE SYSTEM SHALL ensure the leaf
    begins with either `/api/` or `/rest/` to select the corresponding URL root.
 3. WHEN a `*Group` class composes a sub-path THE SYSTEM SHALL do so via the

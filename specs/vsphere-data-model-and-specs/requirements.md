@@ -4,11 +4,11 @@
 
 The `vsphere-data-model-and-specs` feature delivers the typed DTOs (`model/`),
 request payload specs (`specs/`), and reference enumerations (`enums/`) used by every
-`*Group` class in `automojo-restclient-vsphere`. It is the home for what was previously
+`*Group` class in `codecraftai-restclient-vsphere`. It is the home for what was previously
 split between the legacy `datastructures/model/`, `datastructures/specs/`, and
-`metasphere/` trees in `automojo-landscaping`, now cleanly separated by purpose.
+`metasphere/` trees in `codecraftai-landscaping`, now cleanly separated by purpose.
 
-All DTOs and specs are `SchemaObject` subclasses (from the automojo schema library)
+All DTOs and specs are `SchemaObject` subclasses (from the ccai schema library)
 with `SchemaField` declarations, giving callers typed access plus `to_dict()` /
 `from_dict()` for serialisation.
 
@@ -77,7 +77,7 @@ import them without dragging in the request/response shapes.
 
 ### Requirement 4: New Specs Required for Provisioning
 
-**User Story:** As the `automojo-provisioning` `venue-vsphere` author, I want the
+**User Story:** As the `codecraftai-provisioning` `venue-vsphere` author, I want the
 new specs (`VmCloneSpec`, `VmSnapshotSpec`, `VmPowerActionSpec`,
 `VmGuestCustomizationSpec`) that the legacy client did not provide, so I can drive
 the provisioning lifecycle.
