@@ -14,8 +14,11 @@ __copyright__ = "Copyright 2025, Code Craft AI LLC"
 __credits__ = []
 
 
+import json
 import os
 import re
+
+from xml.sax.saxutils import escape as xml_escape
 
 from typing import Any, Iterable, List, Optional
 
@@ -170,13 +173,15 @@ class LinuxCloudInitRenderer:
             lines.append("resolv_conf:")
             lines.append("  nameservers:")
             for server in dns_servers:
-                lines.append("    - {}".format(server))
+                # JSON-quote each value: a JSON string is a valid YAML scalar, so
+                # this prevents untrusted values from injecting/breaking the YAML.
+                lines.append("    - {}".format(json.dumps(server)))
 
         dns_search = _spec_field(spec=spec, name="dns_search")
         if dns_search is not None and len(dns_search) > 0:
             lines.append("  searchdomains:")
             for domain in dns_search:
-                lines.append("    - {}".format(domain))
+                lines.append("    - {}".format(json.dumps(domain)))
 
         ssh_keys = _spec_field(spec=spec, name="ssh_authorized_keys")
         if ssh_keys is not None and len(ssh_keys) > 0:
@@ -184,13 +189,13 @@ class LinuxCloudInitRenderer:
             lines.append("  - default")
             lines.append("    ssh_authorized_keys:")
             for key in ssh_keys:
-                lines.append("      - {}".format(key))
+                lines.append("      - {}".format(json.dumps(key)))
 
         commands = _spec_field(spec=spec, name="run_command_scripts")
         if commands is not None and len(commands) > 0:
             lines.append("runcmd:")
             for cmd in commands:
-                lines.append("  - {}".format(cmd))
+                lines.append("  - {}".format(json.dumps(cmd)))
 
         rtnval = os.linesep.join(lines)
         return rtnval
@@ -244,7 +249,7 @@ class WindowsSysprepRenderer:
             for index, cmd in enumerate(commands, start=1):
                 lines.append("        <SynchronousCommand>")
                 lines.append("          <Order>{}</Order>".format(index))
-                lines.append("          <CommandLine>{}</CommandLine>".format(cmd))
+                lines.append("          <CommandLine>{}</CommandLine>".format(xml_escape(cmd)))
                 lines.append("        </SynchronousCommand>")
             lines.append("      </FirstLogonCommands>")
             lines.append("    </component>")
