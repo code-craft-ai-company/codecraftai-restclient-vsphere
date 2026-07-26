@@ -10,7 +10,8 @@ import unittest
 from typing import List
 from unittest.mock import MagicMock
 
-from hypothesis import given, settings, strategies as st
+from ccai.testbase.properties import given
+from ccai.testbase.properties import strategies as st
 
 from ccai.credentials.basiccredential import BasicCredential
 
@@ -222,13 +223,12 @@ def _host(name: str, identifier: str) -> HostSummary:
 
 class TestDeterminismProperties(unittest.TestCase):
 
-    @settings(max_examples=50, deadline=None)
     @given(
         st.lists(
             st.tuples(_name_strategy, _id_strategy, _free_strategy),
             min_size=1, max_size=8,
         ),
-    )
+     constraints={"max_examples": 50})
     def test_find_datastore_determinism_and_soundness(self, triples) -> None:
         client = _make_client()
         cands = [_ds(name=n, identifier=i, free_gb=g) for (n, i, g) in triples]
@@ -249,8 +249,7 @@ class TestDeterminismProperties(unittest.TestCase):
         self.assertIn(result1.name, names)
         return
 
-    @settings(max_examples=50, deadline=None)
-    @given(st.lists(st.tuples(_name_strategy, _id_strategy), min_size=1, max_size=8))
+    @given(st.lists(st.tuples(_name_strategy, _id_strategy), min_size=1, max_size=8), constraints={"max_examples": 50})
     def test_find_datastore_tie_breaker_totality(self, pairs) -> None:
         client = _make_client()
         # All same free space — tie-break by name then id.
@@ -264,8 +263,7 @@ class TestDeterminismProperties(unittest.TestCase):
         self.assertEqual(result1.datastore, expected.datastore)
         return
 
-    @settings(max_examples=50, deadline=None)
-    @given(st.lists(st.tuples(_name_strategy, _id_strategy), min_size=1, max_size=8))
+    @given(st.lists(st.tuples(_name_strategy, _id_strategy), min_size=1, max_size=8), constraints={"max_examples": 50})
     def test_pick_host_tie_breaker_totality(self, pairs) -> None:
         client = _make_client()
         cands = [_host(name=n, identifier=i) for (n, i) in pairs]
@@ -277,8 +275,7 @@ class TestDeterminismProperties(unittest.TestCase):
         self.assertEqual(result.host, expected.host)
         return
 
-    @settings(max_examples=50, deadline=None)
-    @given(st.lists(st.tuples(_name_strategy, _id_strategy), min_size=0, max_size=8))
+    @given(st.lists(st.tuples(_name_strategy, _id_strategy), min_size=0, max_size=8), constraints={"max_examples": 50})
     def test_find_vm_by_tag_ordering(self, pairs) -> None:
         client = _make_client()
         vms = [
@@ -293,8 +290,7 @@ class TestDeterminismProperties(unittest.TestCase):
         self.assertEqual(names_and_ids, sorted(names_and_ids))
         return
 
-    @settings(max_examples=50, deadline=None)
-    @given(_name_strategy, st.lists(_id_strategy, min_size=0, max_size=5))
+    @given(_name_strategy, st.lists(_id_strategy, min_size=0, max_size=5), constraints={"max_examples": 50})
     def test_find_vm_by_name_branch_behaviour(self, target_name, extra_ids) -> None:
         client = _make_client()
         vms = [

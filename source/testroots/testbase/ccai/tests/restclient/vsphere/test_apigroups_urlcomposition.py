@@ -8,7 +8,8 @@ import unittest
 
 from unittest.mock import MagicMock
 
-from hypothesis import given, settings, strategies as st
+from ccai.testbase.properties import given
+from ccai.testbase.properties import strategies as st
 
 from ccai.credentials.basiccredential import BasicCredential
 from ccai.errors.exceptions import SemanticError
@@ -99,8 +100,7 @@ class TestUrlCompositionProperties(unittest.TestCase):
         self.client = _make_client()
         return
 
-    @settings(max_examples=50, deadline=None)
-    @given(st.sampled_from(_GROUP_LEAFS), st.lists(_safe_part, min_size=0, max_size=4))
+    @given(st.sampled_from(_GROUP_LEAFS), st.lists(_safe_part, min_size=0, max_size=4), constraints={"max_examples": 50})
     def test_single_slash_invariant(self, base_leaf, parts) -> None:
         # Build a synthetic group dynamically.  We can't use the cached
         # client groups because they have a fixed BASE_LEAF; instead we
@@ -119,8 +119,7 @@ class TestUrlCompositionProperties(unittest.TestCase):
         self.assertTrue(url.startswith("https://vc.example.com" + base_leaf[:5]))
         return
 
-    @settings(max_examples=30, deadline=None)
-    @given(st.sampled_from(_GROUP_LEAFS), st.lists(_safe_part, min_size=1, max_size=4))
+    @given(st.sampled_from(_GROUP_LEAFS), st.lists(_safe_part, min_size=1, max_size=4), constraints={"max_examples": 30})
     def test_determinism(self, base_leaf, parts) -> None:
         from ccai.restclient.vsphere.apigroups.basegroup import BaseGroup
 
@@ -133,8 +132,7 @@ class TestUrlCompositionProperties(unittest.TestCase):
         self.assertEqual(url1, url2)
         return
 
-    @settings(max_examples=30, deadline=None)
-    @given(st.dictionaries(_safe_part, _safe_part, min_size=0, max_size=6))
+    @given(st.dictionaries(_safe_part, _safe_part, min_size=0, max_size=6), constraints={"max_examples": 30})
     def test_sort_params_idempotent_and_sorted(self, raw) -> None:
         from ccai.restclient.vsphere.apigroups.basegroup import BaseGroup
 

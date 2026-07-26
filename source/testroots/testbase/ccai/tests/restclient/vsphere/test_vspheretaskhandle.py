@@ -11,7 +11,8 @@ from typing import Dict, List, Optional
 
 from unittest.mock import MagicMock
 
-from hypothesis import given, settings, strategies as st
+from ccai.testbase.properties import given
+from ccai.testbase.properties import strategies as st
 
 from ccai.errors.exceptions import SemanticError
 from ccai.interfaces.itaskhandle import ITaskHandle
@@ -276,8 +277,7 @@ def _state_sequence_with_terminal(draw):
 
 class TestVSphereTaskHandleProperties(unittest.TestCase):
 
-    @settings(max_examples=50, deadline=None)
-    @given(_state_sequence_with_terminal())
+    @given(_state_sequence_with_terminal(), constraints={"max_examples": 50})
     def test_any_sequence_with_terminal_converges(self, sequence) -> None:
         client = MagicMock()
         handle = VSphereTaskHandle(
@@ -295,8 +295,7 @@ class TestVSphereTaskHandleProperties(unittest.TestCase):
                 handle.wait(aspects=_aspects())
         return
 
-    @settings(max_examples=50, deadline=None)
-    @given(st.lists(st.sampled_from(_NON_TERMINAL_STATES), min_size=1, max_size=5))
+    @given(st.lists(st.sampled_from(_NON_TERMINAL_STATES), min_size=1, max_size=5), constraints={"max_examples": 50})
     def test_no_terminal_then_timeout(self, prefix) -> None:
         client = MagicMock()
         # Fetcher returns RUNNING forever; clock fires past timeout
@@ -325,8 +324,7 @@ class TestVSphereTaskHandleProperties(unittest.TestCase):
             handle.wait(aspects=_aspects(completion_timeout=1.0))
         return
 
-    @settings(max_examples=20, deadline=None)
-    @given(_state_sequence_with_terminal())
+    @given(_state_sequence_with_terminal(), constraints={"max_examples": 20})
     def test_transition_log_count_equals_distinct_transitions(self, sequence) -> None:
         client = MagicMock()
         sleeps: List[float] = []

@@ -6,7 +6,8 @@
 
 import unittest
 
-from hypothesis import given, settings, strategies as st
+from ccai.testbase.properties import given
+from ccai.testbase.properties import strategies as st
 
 from ccai.restclient.vsphere.model.summary import (
     ClusterSummary,
@@ -162,24 +163,21 @@ _name = st.text(min_size=1, max_size=20).filter(lambda s: "\x00" not in s)
 
 class TestModelRoundTripProperties(unittest.TestCase):
 
-    @settings(max_examples=50, deadline=None)
-    @given(_name, _name, st.integers(min_value=0, max_value=512), st.integers(min_value=128, max_value=65536))
+    @given(_name, _name, st.integers(min_value=0, max_value=512), st.integers(min_value=128, max_value=65536), constraints={"max_examples": 50})
     def test_vmsummary_property(self, name, vm_id, cpu_count, mem_mib) -> None:
         src = VirtualMachineSummary(name=name, vm=vm_id, power_state="POWERED_OFF", cpu_count=cpu_count, memory_size_MiB=mem_mib)
         rebuilt = VirtualMachineSummary.from_dict(src.to_dict())
         self.assertEqual(src, rebuilt)
         return
 
-    @settings(max_examples=50, deadline=None)
-    @given(_name, _name)
+    @given(_name, _name, constraints={"max_examples": 50})
     def test_datacentersummary_property(self, name, dc_id) -> None:
         src = DatacenterSummary(name=name, datacenter=dc_id)
         rebuilt = DatacenterSummary.from_dict(src.to_dict())
         self.assertEqual(src, rebuilt)
         return
 
-    @settings(max_examples=50, deadline=None)
-    @given(_name, _name, st.integers(min_value=0, max_value=10**12), st.integers(min_value=0, max_value=10**12))
+    @given(_name, _name, st.integers(min_value=0, max_value=10**12), st.integers(min_value=0, max_value=10**12), constraints={"max_examples": 50})
     def test_datastoresummary_property(self, name, ds_id, cap, free) -> None:
         src = DatastoreSummary(name=name, datastore=ds_id, type="VMFS", capacity=cap, free_space=free)
         rebuilt = DatastoreSummary.from_dict(src.to_dict())
