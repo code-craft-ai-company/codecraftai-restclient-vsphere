@@ -79,9 +79,10 @@ Avoid composite tests that validate multiple components or functions in a series
 assertions, as they lack proper isolation and can miss checks when an assertion fails.
 
 Use Python's `unittest` framework with `setUp` and `tearDown` methods. Property-based
-tests use `hypothesis` and run inside the same `unittest` harness as example-based
-tests. Specs flagged with property-test requirements (`vsphere-apigroups-migration`,
-`vsphere-task-handle`, `vsphere-inventory-helpers`) MUST include hypothesis coverage.
+tests use `ccai.testbase.properties` (NOT hypothesis) and run inside the same
+`unittest` harness as example-based tests. Specs flagged with property-test
+requirements (`vsphere-apigroups-migration`, `vsphere-task-handle`,
+`vsphere-inventory-helpers`) MUST include property coverage.
 
 # Code Naming Conventions
 The code naming conventions of this repository follow the [Code Craft AI Python Naming Conventions](usersguide/10-02-naming-conventions.rst)
@@ -123,3 +124,10 @@ currently not published.
 # Running Code
 - **Linux / macOS:** Use `.venv/bin/python-env <script.py>`
 - **Windows:** Use `.venv/bin/python-env.ps1 <script.py>`
+
+Property testing uses `ccai.testbase.properties`, never `hypothesis`. The fleet
+ships its own libraries rather than depending on third-party ones, and
+`hypothesis` was never a declared dependency of this repo — the requirement
+named a package nothing installed. Note that a testbase `@given` cannot run
+under plain `pytest`: it reports the strategy parameters as missing fixtures.
+Run property tests through the testbase runner.
