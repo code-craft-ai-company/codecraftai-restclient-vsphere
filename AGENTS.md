@@ -70,6 +70,8 @@ Downstream consumers: `codecraftai-landscaping` (via `vspherecoordinatorcoupling
 # Testing Conventions
 The 'codecraftai-restclient-vsphere' package repository utilizes the 'unittest' framework in
 order to test the functionality of the code.
+Tests live under 'source/testroots/testbase/ccai/tests/restclient/vsphere'.
+
 
 ## Test Granularity
 Tests should verify the functionality of individual components or functions in
