@@ -5,10 +5,11 @@
     - Scoped client routes to the named host
 """
 
-import unittest
 
 from http import HTTPStatus
 from unittest.mock import MagicMock
+
+from ccai import testbase
 
 from ccai.credentials.basiccredential import BasicCredential
 
@@ -36,72 +37,74 @@ def _ok(payload):
     return resp
 
 
-class TestLinkedVcenters(unittest.TestCase):
-
-    def test_happy_multi_peer(self) -> None:
-        client = _make_client()
-        client._session.get.return_value = _ok([
-            {"uuid": "uuid-local", "hostname": "vc.example.com",
-             "is_local": True, "version": "8.0"},
-            {"uuid": "uuid-peer", "hostname": "vc-peer.example.com",
-             "is_local": False, "version": "8.0"},
-        ])
-        result = client.linked_vcenters()
-        self.assertEqual(len(result), 2)
-        self.assertIsInstance(result[0], LinkedVCenterRecord)
-        return
-
-    def test_not_configured_returns_local_only(self) -> None:
-        client = _make_client()
-        resp = MagicMock()
-        resp.status_code = HTTPStatus.NOT_FOUND
-        client._session.get.return_value = resp
-        result = client.linked_vcenters()
-        self.assertEqual(len(result), 1)
-        self.assertTrue(bool(result[0].is_local))
-        return
-
-    def test_empty_list_returns_local_only(self) -> None:
-        client = _make_client()
-        client._session.get.return_value = _ok([])
-        result = client.linked_vcenters()
-        self.assertEqual(len(result), 1)
-        return
+# ----------------------------------------------------------------------
+# TestLinkedVcenters
+# ----------------------------------------------------------------------
 
 
-class TestForVcenter(unittest.TestCase):
+def test_happy_multi_peer() -> None:
+    client = _make_client()
+    client._session.get.return_value = _ok([
+        {"uuid": "uuid-local", "hostname": "vc.example.com",
+         "is_local": True, "version": "8.0"},
+        {"uuid": "uuid-peer", "hostname": "vc-peer.example.com",
+         "is_local": False, "version": "8.0"},
+    ])
+    result = client.linked_vcenters()
+    testbase.assert_equal(len(result), 2)
+    testbase.assert_true(isinstance(result[0], LinkedVCenterRecord))
+    return
 
-    def test_returns_local_when_uuid_local(self) -> None:
-        client = _make_client()
-        client._session.get.return_value = _ok([
-            {"uuid": "uuid-local", "hostname": "vc.example.com", "is_local": True},
-            {"uuid": "uuid-peer", "hostname": "vc-peer.example.com", "is_local": False},
-        ])
-        scoped = client.for_vcenter(uuid="uuid-local")
-        self.assertIs(scoped, client)
-        return
+def test_not_configured_returns_local_only() -> None:
+    client = _make_client()
+    resp = MagicMock()
+    resp.status_code = HTTPStatus.NOT_FOUND
+    client._session.get.return_value = resp
+    result = client.linked_vcenters()
+    testbase.assert_equal(len(result), 1)
+    testbase.assert_true(bool(result[0].is_local))
+    return
 
-    def test_returns_new_client_for_peer(self) -> None:
-        client = _make_client()
-        client._session.get.return_value = _ok([
-            {"uuid": "uuid-local", "hostname": "vc.example.com", "is_local": True},
-            {"uuid": "uuid-peer", "hostname": "vc-peer.example.com", "is_local": False},
-        ])
-        scoped = client.for_vcenter(uuid="uuid-peer")
-        self.assertIsInstance(scoped, VSphereClient)
-        self.assertIsNot(scoped, client)
-        self.assertEqual(scoped._host, "vc-peer.example.com")
-        return
-
-    def test_unknown_uuid_raises(self) -> None:
-        client = _make_client()
-        client._session.get.return_value = _ok([
-            {"uuid": "uuid-local", "hostname": "vc.example.com", "is_local": True},
-        ])
-        with self.assertRaises(VSphereResourceNotFoundError):
-            client.for_vcenter(uuid="uuid-absent")
-        return
+def test_empty_list_returns_local_only() -> None:
+    client = _make_client()
+    client._session.get.return_value = _ok([])
+    result = client.linked_vcenters()
+    testbase.assert_equal(len(result), 1)
+    return
 
 
-if __name__ == "__main__":
-    unittest.main()
+# ----------------------------------------------------------------------
+# TestForVcenter
+# ----------------------------------------------------------------------
+
+
+def test_returns_local_when_uuid_local() -> None:
+    client = _make_client()
+    client._session.get.return_value = _ok([
+        {"uuid": "uuid-local", "hostname": "vc.example.com", "is_local": True},
+        {"uuid": "uuid-peer", "hostname": "vc-peer.example.com", "is_local": False},
+    ])
+    scoped = client.for_vcenter(uuid="uuid-local")
+    testbase.assert_true(scoped is client)
+    return
+
+def test_returns_new_client_for_peer() -> None:
+    client = _make_client()
+    client._session.get.return_value = _ok([
+        {"uuid": "uuid-local", "hostname": "vc.example.com", "is_local": True},
+        {"uuid": "uuid-peer", "hostname": "vc-peer.example.com", "is_local": False},
+    ])
+    scoped = client.for_vcenter(uuid="uuid-peer")
+    testbase.assert_true(isinstance(scoped, VSphereClient))
+    testbase.assert_true(scoped is not client)
+    testbase.assert_equal(scoped._host, "vc-peer.example.com")
+    return
+
+def test_unknown_uuid_raises() -> None:
+    client = _make_client()
+    client._session.get.return_value = _ok([
+        {"uuid": "uuid-local", "hostname": "vc.example.com", "is_local": True},
+    ])
+    with testbase.raises(VSphereResourceNotFoundError):
+        client.for_vcenter(uuid="uuid-absent")
+    return
