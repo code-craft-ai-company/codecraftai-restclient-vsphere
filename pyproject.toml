@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "codecraftai-restclient-vsphere"
 description = "Code Craft AI - vSphere REST Client Package"
-version = "1.0.0"
+version = "1.0.1"
 authors = ["Myron Walker <myron.walker@gmail.com>"]
 readme = "README.rst"
 license = "LicenseRef-CodeCraftAI-Dual-License"
@@ -22,11 +22,9 @@ packages = [{include="ccai", from="source/packages"}]
 [tool.poetry.dependencies]
 python = ">=3.10,<4.0"
 requests = "^2.32.5"
-codecraftai-errors = { version = "<2.0.0", source = "codecraftai" }
-codecraftai-interfaces = { version = "<2.0.0", source = "codecraftai" }
+codecraftai-foundations = { version = "<2.0.0", source = "codecraftai" }
 codecraftai-credentials = { version = "<2.0.0", source = "codecraftai" }
 codecraftai-restclient-base = { version = "<2.0.0", source = "codecraftai" }
-codecraftai-waiting = { version = "<2.0.0", source = "codecraftai" }
 codecraftai-testbase = { version = "<2.0.0", source = "codecraftai" }
 
 [tool.poetry.group.dev.dependencies]
