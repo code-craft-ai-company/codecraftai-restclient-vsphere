@@ -10,7 +10,7 @@ Highlights
 ==========
 
 - ``VSphereClient`` — the ``RestClientBase`` subclass that handles session-token mint, dual ``/api`` and ``/rest`` URL composition, and the 29 lazy-cached api-group properties.
-- ``VSphereTaskHandle`` — implements ``ITaskHandle`` from ``codecraftai-interfaces``; sync-polling with aspects-controlled interval and timeout, injectable clock/sleeper/fetcher for test determinism.
+- ``VSphereTaskHandle`` — implements ``ITaskHandle`` from ``codecraftai-foundations``; sync-polling with aspects-controlled interval and timeout, injectable clock/sleeper/fetcher for test determinism.
 - 29 ``apigroups/*Group`` classes covering certificate management, clusters, compute, content library, crypto manager, datacenter, datastore, deployment, folder, guest, host, hvc, identity, inventory, iso, lcm, namespace management, networks, OVF, resource pool, services, storage, system config, tagging, token service, topology, trusted infrastructure, and VMs.
 - Content Library deploy (``ContentGroup.deploy_ovf_item``), OVF deploy from URL or local file (``OvfGroup.deploy_from_url`` / ``deploy_from_local_ovf``), and guest customization (Linux cloud-init + Windows sysprep renderers).
 - VM lifecycle waiters: ``wait_for_power_state``, ``wait_for_tools_ready``, ``wait_for_ip_address``.
