@@ -56,7 +56,7 @@ Run the test suite:
 
 .. code-block:: bash
 
-   PYTHONPATH=source/packages:source/testroots/testbase python -m pytest source/testroots -q
+   testbase testing run --root ./source/testroots/testbase --includes=testbase.ccai.tests
 
 Standards and Conventions
 =========================
