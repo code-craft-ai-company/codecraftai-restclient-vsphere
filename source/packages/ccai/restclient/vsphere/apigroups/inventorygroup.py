@@ -17,7 +17,7 @@ __credits__ = []
 
 import os
 
-from typing import Iterable, List, Optional
+from typing import List, Optional
 
 from ccai.restclient.vsphere.apigroups.basegroup import BaseGroup
 from ccai.restclient.vsphere.apigroups.inventoryerrors import (

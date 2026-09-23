@@ -23,7 +23,6 @@ from ccai.restclient.vsphere.apigroups.customizationrenderers import (
     validate_hostname,
     validate_network_configs,
 )
-from ccai.restclient.vsphere.specs.networkconfig import NetworkConfig, NetworkMode
 from ccai.restclient.vsphere.specs.vmguestcustomization import (
     VmGuestCustomizationSpec,
 )

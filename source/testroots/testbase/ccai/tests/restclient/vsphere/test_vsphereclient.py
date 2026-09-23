@@ -9,11 +9,9 @@ from unittest.mock import MagicMock, patch
 from ccai import testbase
 
 from ccai.credentials.basiccredential import BasicCredential
-from ccai.credentials.publickeycredential import PublicKeyCredential
 from ccai.errors.exceptions import SemanticError
 
 from ccai.restclient.vsphere.vsphereclient import VSphereClient
-from ccai.restclient.vsphere.aspectsvsphere import DEFAULT_VSPHERE_ASPECTS
 from ccai.restclient.vsphere.vspheresession import AUTH_HEADER
 
 

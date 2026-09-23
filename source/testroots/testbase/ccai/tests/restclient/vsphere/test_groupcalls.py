@@ -11,9 +11,7 @@ from ccai import testbase
 
 from ccai.credentials.basiccredential import BasicCredential
 
-from ccai.restclient.vsphere.aspectsvsphere import DEFAULT_VSPHERE_ASPECTS
-from ccai.restclient.vsphere.model.summary import DatacenterSummary, FolderSummary, HostSummary
-from ccai.restclient.vsphere.model.vm import VirtualMachineSummary
+from ccai.restclient.vsphere.model.summary import DatacenterSummary
 from ccai.restclient.vsphere.vsphereclient import VSphereClient
 
 

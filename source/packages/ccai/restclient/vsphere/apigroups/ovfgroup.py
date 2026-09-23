@@ -14,7 +14,6 @@ __credits__ = []
 import os
 
 from http import HTTPStatus
-from typing import Optional
 from urllib.parse import urlsplit
 
 from ccai.errors.exceptions import SemanticError

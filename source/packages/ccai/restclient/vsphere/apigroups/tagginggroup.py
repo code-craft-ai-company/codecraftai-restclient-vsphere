@@ -25,7 +25,6 @@ from ccai.restclient.vsphere.aspectsvsphere import (
 
 
 _CATEGORY_LEAF = "/api/cis/tagging/category"
-_TAG_LEAF = "/api/cis/tagging/tag"
 _ASSOCIATION_LEAF = "/api/cis/tagging/tag-association"
 
 

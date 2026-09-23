@@ -40,7 +40,6 @@ from ccai.restclient.vsphere.aspectsvsphere import (
     DEFAULT_VSPHERE_ASPECTS,
 )
 from ccai.restclient.vsphere.vspheresession import (
-    AUTH_HEADER,
     AUTH_LEAF,
     apply_session_token,
     mint_session_token,

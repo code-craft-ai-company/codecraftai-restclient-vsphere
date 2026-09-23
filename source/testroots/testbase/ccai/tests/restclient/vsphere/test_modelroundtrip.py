@@ -16,10 +16,7 @@ from ccai.restclient.vsphere.model.summary import (
     FolderSummary,
     HostSummary,
 )
-from ccai.restclient.vsphere.model.vm import (
-    VirtualMachineInfo,
-    VirtualMachineSummary,
-)
+from ccai.restclient.vsphere.model.vm import VirtualMachineSummary
 from ccai.restclient.vsphere.model.network import (
     NetworkSummary,
     DistributedSwitchSummary,

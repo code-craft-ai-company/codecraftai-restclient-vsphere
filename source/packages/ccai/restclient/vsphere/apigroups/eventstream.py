@@ -15,7 +15,7 @@ import logging
 import time
 
 from collections import deque
-from typing import Any, Callable, Deque, List, Optional
+from typing import Callable, Deque, List, Optional
 
 from ccai.restclient.vsphere.model.event import EventRecord
 from ccai.restclient.vsphere.specs.eventfilter import EventFilter

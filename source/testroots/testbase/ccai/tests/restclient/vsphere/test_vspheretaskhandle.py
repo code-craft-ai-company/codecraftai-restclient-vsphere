@@ -6,7 +6,7 @@
 """
 
 
-from typing import Dict, List, Optional
+from typing import Dict, List
 
 from unittest.mock import MagicMock
 
@@ -19,9 +19,7 @@ from ccai.errors.exceptions import SemanticError
 from ccai.interfaces.itaskhandle import ITaskHandle
 from ccai.restclient.vsphere.aspectsvsphere import AspectsVSphere
 from ccai.restclient.vsphere.vspheretaskhandle import (
-    TaskInfo,
     TaskState,
-    TERMINAL_STATES,
     VSphereTaskFailedError,
     VSphereTaskHandle,
     VSphereTaskNotCancellableError,
@@ -276,7 +274,6 @@ def test_isinstance_itaskhandle() -> None:
 # ---------------------------------------------------------------------
 
 _NON_TERMINAL_STATES = (TaskState.QUEUED, TaskState.RUNNING)
-_RAISING_TERMINALS = (TaskState.FAILED, TaskState.ERROR)
 
 
 @st.composite
@@ -310,7 +307,7 @@ def test_any_sequence_with_terminal_converges(sequence) -> None:
     )
     terminal = sequence[-1]
     if terminal == TaskState.SUCCEEDED:
-        result = handle.wait(aspects=_aspects())
+        handle.wait(aspects=_aspects())
         testbase.assert_true(handle.is_done())
     else:
         with testbase.raises(VSphereTaskFailedError):

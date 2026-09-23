@@ -4,8 +4,6 @@
     and determinism declared by the spec.
 """
 
-from unittest.mock import MagicMock
-
 from ccai import testbase
 
 from ccai.testbase.properties import given

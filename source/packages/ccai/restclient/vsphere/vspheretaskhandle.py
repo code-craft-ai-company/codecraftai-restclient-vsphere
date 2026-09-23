@@ -14,7 +14,7 @@ __copyright__ = "Copyright 2025, Code Craft AI LLC"
 __credits__ = []
 
 
-from typing import Any, Callable, Optional, TYPE_CHECKING
+from typing import Callable, Optional, TYPE_CHECKING
 
 import os
 import time
@@ -28,7 +28,6 @@ from http import HTTPStatus
 from ccai.errors.exceptions import SemanticError
 from ccai.errors.raising import raise_for_http_status
 from ccai.interfaces.itaskhandle import (
-    ITaskHandle,
     TaskResult,
     TaskState as IfaceTaskState,
 )
@@ -470,10 +469,3 @@ class VSphereTaskHandle:
                 context="VSphereTaskHandle._fetch_status")
         rtnval = resp.json()
         return rtnval
-
-
-# Runtime conformance attestation.  ``ITaskHandle`` is a
-# ``@runtime_checkable`` Protocol, so isinstance() works structurally;
-# this assignment exists purely to make the structural relationship
-# obvious to readers and to lock the import into the module.
-_ITASKHANDLE_PROTOCOL = ITaskHandle

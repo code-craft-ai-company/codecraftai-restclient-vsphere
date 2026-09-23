@@ -18,7 +18,7 @@ import time
 
 from http import HTTPStatus
 
-from typing import Any, Callable, List, Optional
+from typing import Callable, List, Optional
 
 from ccai.errors.exceptions import SemanticError
 from ccai.errors.raising import raise_for_http_status

@@ -11,8 +11,6 @@ __copyright__ = "Copyright 2025, Code Craft AI LLC"
 __credits__ = []
 
 
-from typing import Optional
-
 from ccai.restclient.base.schemaobject import SchemaObject
 from ccai.restclient.base.schemafield import Field
 

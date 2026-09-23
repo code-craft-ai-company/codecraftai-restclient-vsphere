@@ -8,7 +8,6 @@
 """
 
 
-from typing import List
 from unittest.mock import MagicMock
 
 from ccai import testbase
@@ -16,7 +15,6 @@ from ccai import testbase
 from ccai.credentials.basiccredential import BasicCredential
 
 from ccai.restclient.vsphere.apigroups.eventsgroup import EventsGroup
-from ccai.restclient.vsphere.apigroups.eventstream import EventStream
 from ccai.restclient.vsphere.model.event import EventRecord
 from ccai.restclient.vsphere.specs.eventfilter import EventFilter
 from ccai.restclient.vsphere.vsphereclient import VSphereClient

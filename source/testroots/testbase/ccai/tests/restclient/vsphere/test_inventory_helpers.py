@@ -6,7 +6,6 @@
 """
 
 
-from typing import List
 from unittest.mock import MagicMock
 
 from ccai import testbase
